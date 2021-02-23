@@ -1,7 +1,7 @@
 {
   "pageTitle": "Fact-checking collaboratif de :",
   "introTitle": "Vérification collaborative de la vidéo",
-  "intro": "Ci-dessous, les membres de CaptainFact peuvent citer les passages de la vidéo à vérifier. Les citations sont confirmées ou réfutées avec des sources. Les vérifications s'affichent ensuite directement dans la vidéo, à l'écran de tous les utilisateurs de l'extension CaptainFact.",
+  "intro": "Ci-dessous, les utilisateurs inscrits sur CaptainFact peuvent citer les passages de la vidéo à vérifier, puis les confirmer ou les réfuter avec des sources. Les vérifications s'affichent ensuite directement dans la vidéo, à l'écran de tous les utilisateurs de l'extension CaptainFact.",
   "extensionDL": "Découvrir l'extension navigateur",
   "intro1": "- Citez un passage de vidéo à l'aide du bouton (+) en bas à droite.",
   "intro2": "- Ajoutez une source ou un commentaire en dessous des citations.",
@@ -47,6 +47,9 @@
     "help3": "Parfois, les faits énoncés sont vrais, mais l’argumentation est trompeuse ou incohérente. Vous pouvez le mentionner en commentaire en indiquant le type d’argument fallacieux d’après",
     "help3Link": "la classification des erreurs et manipulations de rhétorique et de logique à ce lien",
     "helpButton": "Voir le guide de contribution",
+    "helpFallacy": "Attention cependant, un argumentaire fallacieux ne signifie pas que l'affirmation est fausse",
+    "fallacyFallacyUrl": "fr/l-erreur-sur-l-erreur",
+    "fallacyLink": "(voir ici)",
     "incitateToConfirm": "Aucune source ne confirme cette affirmation",
     "incitateToRefute": "Aucune source ne réfute cette affirmation",
     "addYourSource": "Ajouter la vôtre"
