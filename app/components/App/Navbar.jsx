@@ -1,5 +1,4 @@
 import React from 'react'
-import { connect } from 'react-redux'
 import { Link, withRouter } from 'react-router'
 import styled, { withTheme, css } from 'styled-components'
 import { Flex, Box } from '@rebass/grid'
@@ -9,14 +8,12 @@ import Popup from 'reactjs-popup'
 import { withNamespaces } from 'react-i18next'
 import { omit } from 'lodash'
 
-import { Menu } from 'styled-icons/boxicons-regular/Menu'
-
 import { CaretDown } from 'styled-icons/fa-solid/CaretDown'
 import { UserCircle } from 'styled-icons/fa-regular/UserCircle'
 import { HelpCircle } from 'styled-icons/boxicons-regular/HelpCircle'
 
 import Logo from './Logo'
-import { toggleSidebar } from '../../state/user_preferences/reducer'
+import MenuToggleSwitch from './MenuToggleSwitch'
 import UserPicture from '../Users/UserPicture'
 import { USER_PICTURE_LARGE } from '../../constants'
 import { withLoggedInUser } from '../LoggedInUser/UserProvider'
@@ -30,6 +27,7 @@ import Container from '../StyledUtils/Container'
 import NotificationsPopupContent from '../Notifications/NotificationsPopupContent'
 import NotificationBell from '../LoggedInUser/NotificationBell'
 import ScoreTag from '../Users/ScoreTag'
+import SearchBox from '../Search/SearchBox'
 
 const NavbarContainer = styled(Flex)`
   position: fixed;
@@ -97,17 +95,6 @@ const UserLoading = styled(UserCircle)`
   margin-right: ${themeGet('space.2')};
 `
 
-const MenuToggleSwitch = styled(Menu)`
-  height: 100%;
-  width: 45px;
-  cursor: pointer;
-  user-select: none;
-
-  &:hover {
-    color: ${themeGet('colors.black.500')};
-  }
-`
-
 const basePopupStyle = {
   boxShadow: 'rgba(150, 150, 150, 0.2) 5px 10px 15px -6px',
   filter: 'none',
@@ -120,7 +107,6 @@ const mobilePopupStyle = { ...basePopupStyle, width: '95%' }
 const Navbar = ({
   t,
   theme,
-  toggleSidebar,
   loggedInUser,
   isAuthenticated,
   loggedInUserLoading,
@@ -140,7 +126,8 @@ const Navbar = ({
         {/* Left */}
         <Flex alignItems="center">
           <Container display="flex" alignItems="center" height={theme.navbarHeight - 1}>
-            <MenuToggleSwitch onClick={() => toggleSidebar()} />
+            {/* Show X icon only on small device */}
+            <MenuToggleSwitch toggleableIcon={width <= 768} />
             {width >= 425 && (
               <StyledLink className="logo" to="/" ml={1}>
                 <Logo height={theme.navbarHeight - 24} borderless />
@@ -148,7 +135,19 @@ const Navbar = ({
             )}
           </Container>
         </Flex>
-        {/* Center - will hold the search bar in the future */}
+        {/* Center - holds the search bar (hidden on mobile) */}
+        {/* The search bar is hidden during the beta, we'll remove the check once it goes public */}
+        {location.pathname.startsWith('/search') && (
+          <Container
+            display={['none', 'block']}
+            position="relative"
+            maxWidth="600px"
+            flex="1 1"
+            mx={2}
+          >
+            <SearchBox />
+          </Container>
+        )}
         {/* Right */}
         {loggedInUserLoading ? (
           <UserLoading size={38} title="Loading" />
@@ -249,7 +248,5 @@ const Navbar = ({
 }
 
 export default withTheme(
-  connect(null, { toggleSidebar })(
-    withLoggedInUser(withNamespaces('main')(withRouter(withResizeDetector(Navbar))))
-  )
+  withLoggedInUser(withNamespaces('main')(withRouter(withResizeDetector(Navbar))))
 )
